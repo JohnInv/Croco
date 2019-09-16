@@ -12,7 +12,7 @@ export class SceneActionsHandler {
 
         this.icons.forEach((icon, iconIndex) => {
             icon.addEventListener('click', () => {
-                this.sceneHandler.next();
+                this.sceneHandler.next(iconIndex);
             });
 
             icon.addEventListener('mouseover', () => {

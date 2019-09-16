@@ -15,8 +15,14 @@ module.exports = {
     devtool: 'inline-source-map',
     entry: './app/index.js',
     output: {
-        path: __dirname + '/dist',
+        path: __dirname + '/',
         filename: 'index.js',
+        publicPath: '/'
+    },
+    resolve: {
+        alias: {
+            images: path.resolve(__dirname, 'app/img'),
+        }
     },
     optimization: {
         minimizer: [
@@ -57,6 +63,14 @@ module.exports = {
             {
                 test:/\.css$/,
                 use:['style-loader','css-loader']
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader',
+                ],
             },
             {
                 test: /\.html$/,

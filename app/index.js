@@ -1,6 +1,6 @@
 import { SceneHandler } from "./objects/scene-handler";
 
-import './main.css';
+import './styles.scss';
 
 class App {
     constructor() {

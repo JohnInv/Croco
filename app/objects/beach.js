@@ -1,59 +1,64 @@
 export class Beach {
-    constructor({c, ctx, coords}) {
-        this.c = c;
-        this.ctx = ctx;
-        this.coords = coords;
+  constructor({
+                c,
+                ctx,
+                coords,
+                color = {from: '#ffe259', to: '#ffa751'},
+                direction
+              }) {
+    this.c = c;
+    this.ctx = ctx;
+    this.coords = coords;
+    this.color = color;
+    this.direction = direction;
 
-        this.draw();
-    }
+    this.draw();
+  }
 
-    draw() {
-        const [p1, p2, p3] = this.coords.points;
-        const [p4, p5, p6, p7, p8] = this.coords.curvedPoints;
+  draw() {
+    const [p1, p2, p3] = this.coords.points;
 
-        this.ctx.beginPath();
-        this.ctx.strokeStyle = '#f2c94c';
+    this.ctx.beginPath();
+    this.ctx.strokeStyle = this.color.from;
 
-        this.ctx.moveTo(...p1);
-        this.ctx.lineTo(...p2);
-        this.ctx.lineTo(...p3);
+    this.ctx.moveTo(...p1);
+    this.ctx.lineTo(...p2);
+    this.ctx.lineTo(...p3);
+    const sandGradient = this.ctx.createLinearGradient(...this.coords.gradient);
 
-        const x1 = this.c.width / 2;
-        const y1 = 0;
-        const x2 = this.c.width / 2;
-        const y2 = this.c.height;
-        const sandGradient = this.ctx.createLinearGradient(x1, y1, x2, y2);
+    sandGradient.addColorStop(0, this.color.from);
+    sandGradient.addColorStop(1, this.color.to);
 
-        sandGradient.addColorStop(0, '#ffe259');
-        sandGradient.addColorStop(1, '#ffa751');
+    this.coords.curvedPoints.forEach(point => this.ctx.quadraticCurveTo(...point));
 
-        this.coords.curvedPoints.forEach(point => this.ctx.quadraticCurveTo(...point));
-
-        this.ctx.fillStyle = sandGradient;
-        this.ctx.fill();
-        this.ctx.stroke();
+    this.ctx.fillStyle = sandGradient;
+    this.ctx.fill();
+    this.ctx.stroke();
 
 
-        this.ctx.beginPath();
-        this.ctx.moveTo(...p3);
-        this.ctx.lineWidth = 2;
-        this.ctx.moveTo(p3[0], p3[1] + 10);
+    this.ctx.beginPath();
+    this.ctx.lineWidth = 15;
+    this.ctx.strokeStyle = '#3792';
 
-        // beach sand near water
-        for (let i = 0; i <= 10; i++) {
-            this.ctx.moveTo(...p3);
-            this.coords.curvedPoints.forEach(point => {
-                const transformedPoint = [...point];
+    // beach sand near water
+    this.ctx.moveTo(...p3);
+    this.coords.curvedPoints.forEach(point => {
+      const transformedPoint = [...point];
+      const offset = 10;
 
-                transformedPoint[1] = point[1] + 10 - i;
-                transformedPoint[3] = point[3] + 10 - i * 1.5;
+      transformedPoint[0] = point[0] + offset;
+      transformedPoint[2] = point[2] + offset;
 
-                this.ctx.quadraticCurveTo(...transformedPoint);
-            });
-        }
+      this.ctx.quadraticCurveTo(...transformedPoint);
+    });
+    this.ctx.stroke();
 
-        this.ctx.moveTo(0, this.coords.curvedPoints[this.coords.curvedPoints.length - 1][3]);
-        this.ctx.lineTo(0, this.c.height);
-        this.ctx.stroke();
-    }
+    this.ctx.beginPath();
+    this.ctx.lineWidth = 1;
+
+    this.ctx.moveTo(0, this.coords.curvedPoints[this.coords.curvedPoints.length - 1][3]);
+    this.ctx.lineTo(0, this.c.height);
+
+    this.ctx.stroke();
+  }
 }

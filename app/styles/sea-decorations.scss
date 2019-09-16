@@ -1,0 +1,108 @@
+.sea-decorations {
+  position: absolute;
+  left: 0;
+  width: 100%;
+
+  &.p-1 {
+    top: 34%;
+    height: 35vh;
+  }
+
+  &.p-2 {
+    top: 65%;
+    height: 20vh;
+  }
+
+  .croco {
+    position: absolute;
+    left: 100px;
+    top: 0;
+    width: 99px;
+    height: 54px;
+    max-height: 54px;
+    background-image: url('~images/croco-head.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    animation: 10s headSwim infinite alternate;
+  }
+
+  .croco-full {
+    position: absolute;
+    left: 0;
+    top: 10%;
+    width: 200px;
+    height: 80px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url('~images/croco-swimming.png');
+    transform: rotate(-4deg);
+
+    &.rotate {
+      transform: scaleX(-1);
+    }
+  }
+}
+
+@keyframes headSwim {
+  0% {
+    left: 5%;
+    top: 5%;
+  }
+
+  25% {
+    left: 5%;
+    top: 15%;
+    background-position: center 55px;
+  }
+
+  50% {
+    left: 25%;
+    top: 15%;
+    background-position: center;
+  }
+
+  75% {
+    left: 25%;
+    top: 20%;
+    background-position: center 55px;
+  }
+
+  100% {
+    left: calc(100% - 100px);
+    top: 35%;
+    background-position: center;
+  }
+}
+
+@keyframes swim {
+  0% {
+    left: 5%;
+    top: 5%;
+  }
+
+  100% {
+    left: 55%;
+    top: 15%;
+    //background-position: center 55px;
+  }
+
+  //50% {
+  //  left: 45%;
+  //  top: 15%;
+  //  background-position: center;
+  //}
+  //
+  //75% {
+  //  left: 25%;
+  //  top: 20%;
+  //  background-position: center 55px;
+  //}
+  //
+  //100% {
+  //  left: calc(100% - 200px);
+  //  top: 35%;
+  //  background-position: center;
+  //}
+}

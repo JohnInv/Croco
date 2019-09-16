@@ -1,14 +1,15 @@
-import { scenes, getInitialScene } from "../config/scenes";
-import { templates } from "../templates/templates";
+import { scenes, getInitialSceneIndex, getEndSceneIndex } from "../config/scenes";
+import { InformationPopup } from "./scene-information-popup";
 
 export class SceneHandler {
     constructor() {
-        this.sceneContainer = null;
+        this.sceneContainer = document.getElementById('scene');
         this.scenes = scenes.slice();
         this.index = 0;
 
         this.current = null;
         this.overlay = null;
+        this.sceneInformationPopup = new InformationPopup();
 
         this.setOverlay();
         this.initScene();
@@ -17,16 +18,23 @@ export class SceneHandler {
     initScene() {
         this.overlay.classList.add('init');
 
-        this.current = getInitialScene();
-        this.index = this.scenes.indexOf(this.current);
-        this.handleScenesTemplates();
+        //TODO: check if can use this.set(getInitialSceneIndex);
+        this.index = getInitialSceneIndex();
+        this.current = this.scenes[this.index];
+        this.handleSceneChange();
     }
 
     setOverlay() {
         this.overlay = document.querySelector('[data-action-overlay]');
     }
 
-    next() {
+    next(answer) {
+        if (typeof answer !== "undefined" && !this.isCorrectAnswer(answer)) {
+            this.set(getEndSceneIndex());
+
+            return;
+        }
+
         this.index = ++this.index % this.scenes.length;
 
         this.set(this.index);
@@ -38,7 +46,7 @@ export class SceneHandler {
         this.index = index;
         this.current = this.scenes[index];
 
-        this.handleScenesTemplates(600);
+        this.handleSceneChange(600);
     }
 
     animateOverlay() {
@@ -49,12 +57,16 @@ export class SceneHandler {
         }, 1000);
     }
 
-    handleScenesTemplates(delay = 0) {
-        this.sceneContainer = document.getElementById('scene');
+    handleSceneChange(delay = 0) {
 
         setTimeout(() => {
-            this.sceneContainer.innerHTML = templates[this.index];
+            this.sceneContainer.innerHTML = this.current.template;
             this.current.init(this);
+            this.sceneInformationPopup.show(this.current.informationText);
         }, delay);
+    }
+
+    isCorrectAnswer(answer) {
+        return this.current.correctAnswers.some(correctAnswer => correctAnswer === answer);
     }
 }

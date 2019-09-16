@@ -1,3 +1,5 @@
+import { getSceneAfterLoseIndex } from "../config/scenes";
+
 export class InfoScene {
   constructor(SceneHandler) {
     this.sceneHandler = SceneHandler;
@@ -13,8 +15,8 @@ export class InfoScene {
   getInfo() {
     const scene = this.sceneHandler.current;
 
-    this.title = scene.title;
-    this.description = scene.description;
+    this.title = scene.title || '';
+    this.description = scene.description || '';
     this.buttonTitle = scene.buttonTitle;
   }
 
@@ -26,10 +28,15 @@ export class InfoScene {
     ];
     const [title, description, button] = document.querySelectorAll(selectors.join(','));
 
-    title.textContent = this.title;
-    description.textContent = this.description;
+    title.innerHTML = this.title;
+    description.innerHTML = this.description;
     button.textContent = this.buttonTitle;
 
-    button.addEventListener('click', () => this.sceneHandler.next());
+    button.addEventListener('click', () => {
+      const isEnd = Boolean(button.getAttribute('data-action-scene-info-button'));
+
+      console.log('isEnd', isEnd, getSceneAfterLoseIndex());
+      isEnd ? this.sceneHandler.set(getSceneAfterLoseIndex()) : this.sceneHandler.next();
+    });
   };
 }
