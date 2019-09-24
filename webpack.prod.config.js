@@ -11,12 +11,12 @@ const TerserPlugin = require('terser-webpack-plugin');
 const urlLoader = require('url-loader');
 const svgUrlLoader = require('svg-url-loader');
 const imageLoader = require('image-webpack-loader');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: "production",
     entry: './app/index.js',
     output: {
-        publicPath:__dirname + '/dist/',
         path: __dirname + '/dist',
         filename: 'index.js',
     },
@@ -73,9 +73,11 @@ module.exports = {
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    'style-loader',
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
                     'css-loader',
-                    'sass-loader',
+                    'sass-loader'
                 ],
             },
             {
@@ -90,6 +92,12 @@ module.exports = {
     },
     plugins: [
         new clean('dist'),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: '[name].css',
+            chunkFilename: '[id].css',
+        }),
         new htmlwebpackplugin({
             template: './app/index.html'
         }),
