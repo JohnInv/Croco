@@ -8,6 +8,10 @@
   justify-content: space-around;
   z-index: 20;
 
+  @media (max-width: 450px) {
+    top: 76%;
+  }
+
   .icon-wrapper {
     background-color: #fff;
     padding: 6px;

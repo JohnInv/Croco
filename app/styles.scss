@@ -64,6 +64,10 @@ button {
 }
 
 #scene {
+  max-height: 100vh;
+  max-width: 100vw;
+  overflow: hidden;
+
   &.blur {
     > *:not([data-scene-information-popup]):not([data-scene-win]) {
       filter: blur(14px);
