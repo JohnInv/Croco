@@ -14,7 +14,7 @@ export const SCENE_AFTER_LOSE = 'SCENE_AFTER_LOSE';
 
 export const scenes = [
   start(),
-  // circus(),
+  circus(),
   beachSeaCroco(),
   beachSeaCrocoV2(),
   river(),

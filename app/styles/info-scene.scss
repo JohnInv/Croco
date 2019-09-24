@@ -69,10 +69,15 @@
         line-height: 30px;
         font-size: 1.5em;
         text-align: center;
+        color: #620202;
 
         @media (max-width: 650px) {
             line-height: inherit;
             font-size: 19px;
+        }
+
+        @media (max-width: 420px) {
+          font-size: 13px;
         }
 
         @media (max-height: 575px) {
@@ -94,5 +99,14 @@
             background-color: #cf0003;
             transform: scale(1.05);
         }
+
+        @media (max-height: 450px) {
+          font-size: 1em;
+        }
+
+        @media (max-width: 650px) {
+            font-size: 1em;
+        }
+
     }
 }

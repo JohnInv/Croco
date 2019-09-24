@@ -19,3 +19,5 @@ export const beachCoords = (xEnd, yEnd) => {
         gradient: [x1, y1, x2, y2]
     };
 };
+
+export const circusCrocodileRunDelay = 5000;

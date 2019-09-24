@@ -27,6 +27,12 @@
         border-radius: 50px;
         -moz-animation: 0.35s scale infinite alternate;
         -webkit-animation: 0.35s scale infinite alternate;
+        opacity: 0;
+        transition: 1s all ease;
+
+        &.active {
+            opacity: 1;
+        }
     }
 }
 

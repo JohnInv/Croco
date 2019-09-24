@@ -1,4 +1,5 @@
 import crocoImage from 'images/croco.png';
+import { circusCrocodileRunDelay } from "const";
 
 export class Croco {
   constructor({c, ctx}) {
@@ -6,20 +7,24 @@ export class Croco {
     this.ctx = ctx;
 
     this.width = 4096;
-    this.height = 512;
+    this.height = 1024;
 
-    this.cycleLoop = [0, 1, 2, 3, 4, 5, 6, 7];
-    this.frameIndex = 0;
+    this.shouldRun = false;
+    this.cycleLoop = {
+      x: [0, 1, 2, 3, 4, 5, 6, 7],
+      y: [0, 1]
+    };
+
+    this.frame = {x: 0, y: 0};
     this.frameCount = 0;
-    this.spriteWidth = this.width / this.cycleLoop.length;
-    this.angle = 0;
+    this.spriteWidth = this.width / this.cycleLoop.x.length;
+    this.spriteHeight = this.height / this.cycleLoop.y.length;
     this.img = null;
 
-    this.x = 0;
+    this.x = this.c.width - this.spriteWidth / 2;
     this.y = 0;
-    this.yOffset = 400;
-    this.cx = 1;
-    this.cy = 1;
+    this.direction = {left: 1, top: 1};
+    this.scale = 0.5;
 
     this.setupImage();
   }
@@ -36,21 +41,20 @@ export class Croco {
   }
 
   setupAnimation() {
+    this.setRunTimeout();
     window.requestAnimationFrame(this.step.bind(this));
   }
 
   drawFrame(frameX, frameY, canvasX, canvasY) {
-    const scale = 0.5;
-
     this.ctx.drawImage(this.img,
-      frameX * this.spriteWidth, frameY, this.spriteWidth, this.height,
-      canvasX, canvasY, this.spriteWidth * scale, this.height * scale);
+      frameX * this.spriteWidth, frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight,
+      canvasX, canvasY, this.spriteWidth * this.scale, this.spriteHeight * this.scale);
   }
 
   step() {
     this.frameCount++;
 
-    if (this.frameCount < 4) {
+    if (this.frameCount < 3) {
       window.requestAnimationFrame(this.step.bind(this));
 
       return;
@@ -58,22 +62,77 @@ export class Croco {
 
     this.frameCount = 0;
 
-    this.ctx.clearRect(0, 0, this.c.width, this.c.height);
-
-    const radius = 100;
-    this.angle += Math.acos(1 - Math.pow(10 / radius, 2) / 2);
-
-    this.x = 220 + this.cx + radius * Math.cos(this.angle);
-    this.y = this.yOffset + this.cy + radius * Math.sin(this.angle);
-
-    this.drawFrame(this.cycleLoop[this.frameIndex], 0, this.x, this.y);
-
-    this.frameIndex++;
-
-    if (this.frameIndex >= this.cycleLoop.length) {
-      this.frameIndex = 0;
-    }
+    this.onStep();
 
     window.requestAnimationFrame(this.step.bind(this));
+  }
+
+  onStep() {
+    this.ctx.clearRect(0, 0, this.c.width, this.c.height);
+
+    if (!this.shouldRun) {
+      this.moveX();
+      this.moveY();
+    } else {
+      this.runAway();
+    }
+
+    this.frame.x++;
+
+    if (this.frame.x >= this.cycleLoop.x.length) {
+      this.frame.x = 0;
+    }
+
+    this.drawFrame(this.cycleLoop.x[this.frame.x], this.cycleLoop.y[this.frame.y], this.x, this.y);
+  }
+
+  moveX() {
+    this.x += 15 * this.direction.left;
+
+    if (this.x + this.spriteWidth * this.scale >= this.c.width) {
+      this.direction.left = -1;
+      this.frame.y = 0;
+    }
+
+    if (this.x <= 0) {
+      this.frame.y = 1;
+      this.direction.left = 1;
+    }
+  }
+
+  moveY() {
+    this.y += 5 * this.direction.top;
+
+    if (this.y + this.spriteHeight * this.scale >= this.c.height) {
+      this.direction.top = -1;
+    }
+
+    if (this.y <= 0) {
+      this.direction.top = 1;
+    }
+  }
+
+  setRunTimeout() {
+    setTimeout(() => {
+      this.shouldRun = true;
+    }, circusCrocodileRunDelay);
+  }
+
+  runAway() {
+    const xMiddle = this.c.width / 2 - this.spriteWidth * this.scale / 2;
+    const xDirection = xMiddle - this.x > 0 ? 1 : -1;
+    const xSpeed = 12;
+
+    if (!(xMiddle <= this.x + xSpeed && xMiddle >= this.x - xSpeed)) {
+      this.x += xSpeed * xDirection;
+    }
+
+    if (this.y > -this.spriteHeight) {
+      this.y -= 5;
+    }
+
+    if (this.y < 100) {
+      this.scale -= 0.015;
+    }
   }
 }

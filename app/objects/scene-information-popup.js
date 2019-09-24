@@ -6,7 +6,7 @@ export class InformationPopup {
     this.close = null;
 
     this.hideTimeout = null;
-    this.hideDelay = 9000;
+    this.hideDelay = 6000;
   }
 
   addCloseListener() {

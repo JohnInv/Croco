@@ -35,7 +35,6 @@ export class InfoScene {
     button.addEventListener('click', () => {
       const isEnd = Boolean(button.getAttribute('data-action-scene-info-button'));
 
-      console.log('isEnd', isEnd, getSceneAfterLoseIndex());
       isEnd ? this.sceneHandler.set(getSceneAfterLoseIndex()) : this.sceneHandler.next();
     });
   };

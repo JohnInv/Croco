@@ -17,11 +17,7 @@ html, body {
   padding: 0;
   box-sizing: border-box;
   overflow: hidden;
-}
-
-#croco {
-  width: 100%;
-  height: 100%;
+  position: relative;
 }
 
 .y-offset {
@@ -46,7 +42,7 @@ html, body {
 canvas.absolute {
   position: absolute;
   left: 0;
-  top: 0;
+  bottom: 0;
 }
 
 .hidden {
