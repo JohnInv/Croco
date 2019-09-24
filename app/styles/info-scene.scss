@@ -69,6 +69,15 @@
         line-height: 30px;
         font-size: 1.5em;
         text-align: center;
+
+        @media (max-width: 650px) {
+            line-height: inherit;
+            font-size: 19px;
+        }
+
+        @media (max-height: 575px) {
+            font-size: 15px;
+        }
     }
 
     &__button {
