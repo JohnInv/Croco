@@ -10,14 +10,13 @@ const sml = require('source-map-loader');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-    // mode: "production",
-    mode: "development",
+    mode: "production",
+    // mode: "development",
     devtool: 'inline-source-map',
     entry: './app/index.js',
     output: {
         path: __dirname + '/',
         filename: 'index.js',
-        publicPath: '/'
     },
     resolve: {
         alias: {
