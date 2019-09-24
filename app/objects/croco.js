@@ -24,7 +24,7 @@ export class Croco {
     this.x = this.c.width - this.spriteWidth / 2;
     this.y = 0;
     this.direction = {left: 1, top: 1};
-    this.scale = 0.5;
+    this.scale = window.innerWidth <= 500 ? 0.35 : 0.5;
 
     this.setupImage();
   }
@@ -134,5 +134,8 @@ export class Croco {
     if (this.y < 100) {
       this.scale -= 0.015;
     }
+  }
+
+  setScale() {
   }
 }
