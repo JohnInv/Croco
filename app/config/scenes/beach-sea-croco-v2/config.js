@@ -1,9 +1,9 @@
-import { setup } from "../../../utils/canvas-setup";
-import { SceneActionsHandler } from "../../../objects/scene-actions-handler";
-import { Sea } from "../../../objects/sea";
-import { Beach } from "../../../objects/beach";
-import { beachCoords } from "../../constants";
-import { Rain } from "../../../objects/rain";
+import { setup } from "utils/canvas-setup";
+import { SceneActionsHandler } from "objects/scene-actions-handler";
+import { Sea } from "objects/sea";
+import { Beach } from "objects/beach";
+import { beachCoords } from "const";
+import { Rain } from "objects/rain";
 import meat from "images/meat.jpg";
 import phone2 from "images/101-2.png";
 import megaphone from "images/hand-with-megaphone-.png";

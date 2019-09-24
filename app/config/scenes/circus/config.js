@@ -1,8 +1,8 @@
-import { setup } from "../../../utils/canvas-setup";
-import { Croco } from "../../../objects/croco";
+import { setup } from "utils/canvas-setup";
+import { Croco } from "objects/croco";
 
 import template from './template.html';
-import { SCENE_START } from "../../scenes";
+import { SCENE_START } from "scenes";
 
 export const config = () => ({
     init(SceneHandler) {

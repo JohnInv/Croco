@@ -1,7 +1,7 @@
-import { setup } from "../../../utils/canvas-setup";
-import { Sea } from "../../../objects/sea";
-import { Grass } from "../../../objects/grass";
-import { SceneActionsHandler } from "../../../objects/scene-actions-handler";
+import { setup } from "utils/canvas-setup";
+import { Sea } from "objects/sea";
+import { Grass } from "objects/grass";
+import { SceneActionsHandler } from "objects/scene-actions-handler";
 import waterClean from "images/water-clean.png";
 import factoryCrossOut from "images/factory-line.png";
 import wait from "images/wait.png";

@@ -1,4 +1,4 @@
-import { getRandomNumber } from "../utils/randomNumber";
+import { getRandomNumber } from "utils/randomNumber";
 
 export class Grass {
   constructor() {

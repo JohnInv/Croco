@@ -1,7 +1,7 @@
-import { setup } from "../../../utils/canvas-setup";
-import { Sea } from "../../../objects/sea";
-import { Grass } from "../../../objects/grass";
-import { SceneActionsHandler } from "../../../objects/scene-actions-handler";
+import { setup } from "utils/canvas-setup";
+import { Sea } from "objects/sea";
+import { Grass } from "objects/grass";
+import { SceneActionsHandler } from "objects/scene-actions-handler";
 import hospital from "images/hospital.png";
 import shapito from "images/shapito.png";
 import lifeguard from "images/lifeguards.png";

@@ -1,15 +1,15 @@
-import { setup } from "../../../utils/canvas-setup";
-import { SceneActionsHandler } from "../../../objects/scene-actions-handler";
-import { Sea } from "../../../objects/sea";
-import { Beach } from "../../../objects/beach";
-import { beachCoords } from "../../constants";
-import { SeaCrocodile } from "../../../objects/sea-crocodile";
+import { setup } from "utils/canvas-setup";
+import { SceneActionsHandler } from "objects/scene-actions-handler";
+import { Sea } from "objects/sea";
+import { Beach } from "objects/beach";
+import { beachCoords } from "const";
+import { SeaCrocodile } from "objects/sea-crocodile";
 
 import net from "images/fishnet.png";
 import phone from "images/101.png";
 import megaphone from "images/hand-with-megaphone-.png";
 
-import { SCENE_AFTER_LOSE } from "../../scenes";
+import { SCENE_AFTER_LOSE } from "scenes";
 import sceneInformationPopup from '../common/scene-information-popup.html';
 import template from './template.html';
 

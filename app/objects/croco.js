@@ -1,4 +1,4 @@
-import crocoImage from '../img/croco.png';
+import crocoImage from 'images/croco.png';
 
 export class Croco {
   constructor({c, ctx}) {

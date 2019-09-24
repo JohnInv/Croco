@@ -1,5 +1,5 @@
 import * as paper from "paper";
-import { lightenColor } from "../utils/lighterColor";
+import { lightenColor } from "utils/lighterColor";
 
 const SEA_TYPE = 'sea';
 

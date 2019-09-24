@@ -7,33 +7,23 @@ const path = require('path');
 const fileLoader = require('file-loader');
 const clean = require('clean-webpack-plugin');
 const sml = require('source-map-loader');
-const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-    mode: "production",
-    // mode: "development",
+    mode: "development",
     devtool: 'inline-source-map',
     entry: './app/index.js',
     output: {
         path: __dirname + '/',
-        filename: 'index.js',
+        filename: 'dist/index.js',
     },
     resolve: {
         alias: {
             images: path.resolve(__dirname, 'app/img'),
+            objects: path.resolve(__dirname, 'app/objects'),
+            utils: path.resolve(__dirname, 'app/utils'),
+            scenes: path.resolve(__dirname, 'app/config/scenes'),
+            const: path.resolve(__dirname, 'app/config/constants')
         }
-    },
-    optimization: {
-        minimizer: [
-            new TerserPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: true, // Must be set to true if using source-maps in production
-                terserOptions: {
-                    // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
-                }
-            }),
-        ],
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
@@ -52,16 +42,13 @@ module.exports = {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [
                     {
-                        loader: "file-loader",
-                        options: {
-                            name: '[path][name].[ext]'
-                        }
-                    }   
+                        loader: "file-loader"
+                    }
                 ]
             },
             {
-                test:/\.css$/,
-                use:['style-loader','css-loader']
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
             },
             {
                 test: /\.s[ac]ss$/i,
@@ -85,7 +72,6 @@ module.exports = {
         new clean('dist'),
         new htmlwebpackplugin({
             template: './app/index.html'
-        }),
-        new webpack.optimize.AggressiveMergingPlugin(),
+        })
     ]
 };

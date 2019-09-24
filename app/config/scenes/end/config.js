@@ -1,5 +1,5 @@
-import { InfoScene } from "../../../objects/info-scene";
-import { SCENE_END } from "../../scenes";
+import { InfoScene } from "objects/info-scene";
+import { SCENE_END } from "scenes";
 
 import template from './template.html';
 
