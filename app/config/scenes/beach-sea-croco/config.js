@@ -15,7 +15,7 @@ import template from './template.html';
 
 export const config = () => ({
   init(SceneHandler) {
-    const water = setup('water', 1, 0.4);
+    const water = setup('water', 1, 0.50);
     const beach = setup('beach', 1, 0.25);
 
     const scene = new SceneActionsHandler(SceneHandler);

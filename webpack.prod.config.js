@@ -18,7 +18,7 @@ module.exports = {
     entry: './app/index.js',
     output: {
         path: __dirname + '/dist',
-        filename: 'index.js',
+        filename: '[hash].js',
     },
     resolve: {
         alias: {
@@ -95,7 +95,7 @@ module.exports = {
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
-            filename: '[name].css',
+            filename: '[hash].css',
             chunkFilename: '[id].css',
         }),
         new htmlwebpackplugin({
