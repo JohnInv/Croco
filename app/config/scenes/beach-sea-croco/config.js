@@ -18,10 +18,12 @@ export const config = () => ({
     const water = setup('water', 1, 0.4);
     const beach = setup('beach', 1, 0.25);
 
-    new SceneActionsHandler(SceneHandler);
+    const scene = new SceneActionsHandler(SceneHandler);
     new Sea({...water});
     new Beach({...beach, coords: beachCoords(beach.c.width, beach.c.height)});
     new SeaCrocodile();
+
+    return () => scene.destroy();
   },
   template: `${template} ${sceneInformationPopup}`,
   icons: [net, phone, megaphone],

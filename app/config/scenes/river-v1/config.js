@@ -13,9 +13,11 @@ export const config = () => ({
     init(SceneHandler) {
         const water = setup('water', 1, 0.55);
 
+        const scene = new SceneActionsHandler(SceneHandler);
         new Sea({...water, color: '#729bfb', lighting: 2.6, type: 'river'});
         new Grass();
-        new SceneActionsHandler(SceneHandler);
+
+        return () => scene.destroy();
     },
     informationText: '5 дней. Крокодила не удается поймать. Но его видели в пресных водах Кальмиуса, возле завода Азовсталь. <br>Что делать?',
     icons: [waterClean, factoryCrossOut, wait],

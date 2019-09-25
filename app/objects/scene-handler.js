@@ -10,6 +10,7 @@ export class SceneHandler {
         this.current = null;
         this.overlay = null;
         this.sceneInformationPopup = new InformationPopup();
+        this.destroyCurrent;
 
         this.setOverlay();
         this.initScene();
@@ -18,7 +19,6 @@ export class SceneHandler {
     initScene() {
         this.overlay.classList.add('init');
 
-        //TODO: check if can use this.set(getInitialSceneIndex);
         this.index = getInitialSceneIndex();
         this.current = this.scenes[this.index];
         this.handleSceneChange();
@@ -44,9 +44,15 @@ export class SceneHandler {
         this.animateOverlay();
 
         this.index = index;
-        this.current = this.scenes[index];
 
-        this.handleSceneChange(600);
+        if (this.destroyCurrent) {
+            try {
+                this.destroyCurrent();
+            } finally {
+                this.current = this.scenes[index];
+                this.handleSceneChange(600);
+            }
+        }
     }
 
     animateOverlay() {
@@ -58,15 +64,26 @@ export class SceneHandler {
     }
 
     handleSceneChange(delay = 0) {
-
         setTimeout(() => {
             this.sceneContainer.innerHTML = this.current.template;
-            this.current.init(this);
+            this.destroyCurrent = this.current.init(this);
             this.sceneInformationPopup.show(this.current.informationText);
         }, delay);
     }
 
     isCorrectAnswer(answer) {
         return this.current.correctAnswers.some(correctAnswer => correctAnswer === answer);
+    }
+
+    refresh() {
+        if (this.destroyCurrent) {
+            try {
+                this.destroyCurrent();
+            } finally {
+                this.current = this.scenes[this.index];
+                this.sceneContainer.innerHTML = this.current.template;
+                this.destroyCurrent = this.current.init(this);
+            }
+        }
     }
 }

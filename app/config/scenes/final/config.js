@@ -7,7 +7,9 @@ import cityHall from 'images/city-hall.png'
 
 export const config = () => ({
   init(SceneHandler) {
-    new SceneActionsHandler(SceneHandler);
+    const scene = new SceneActionsHandler(SceneHandler);
+
+    return () => scene.destroy();
   },
   template: `${template} ${sceneInformationPopup}`,
   popoversText: [

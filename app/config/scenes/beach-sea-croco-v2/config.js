@@ -16,10 +16,12 @@ export const config = () => ({
         const water = setup('water', 1, 0.4);
         const beach = setup('beach', 1, 0.7);
 
-        new SceneActionsHandler(SceneHandler);
+        const scene = new SceneActionsHandler(SceneHandler);
         new Sea({...water, color: '#006994', lighting: 2.6});
         new Beach({...beach, coords: beachCoords(beach.c.width, beach.c.height)});
         new Rain();
+
+        return () => scene.destroy() ;
     },
     template: `${template} ${sceneInformationPopup}`,
     icons: [meat, phone2, megaphone],

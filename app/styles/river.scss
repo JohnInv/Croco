@@ -3,6 +3,10 @@
   width: 100%;
   height: 65vh;
 
+  &.decorations-bg {
+    background: linear-gradient(90deg, #6abd6d 31%, #57b05a 73%);
+  }
+
   &.pier {
     display: flex;
     position: absolute;

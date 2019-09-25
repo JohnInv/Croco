@@ -7,8 +7,11 @@ import { Circus } from "objects/circus";
 export const config = () => ({
     init(SceneHandler) {
         const croco = setup('croco', 1, 0.6);
-        new Croco({ ...croco });
-        new Circus(SceneHandler);
+
+        const circus = new Circus(SceneHandler);
+        const crocodile = new Croco({ ...croco });
+
+        return () => { circus.destroy(); crocodile.destroy() } ;
     },
     icons: [],
     template

@@ -13,9 +13,11 @@ export const config = () => ({
     init(SceneHandler) {
         const water = setup('water', 1, 0.55);
 
+        const scene = new SceneActionsHandler(SceneHandler);
         new Sea({...water, color: '#729bfb', lighting: 2.6, type: 'river'});
         new Grass();
-        new SceneActionsHandler(SceneHandler);
+
+        return () => scene.destroy();
     },
     informationText: 'К вечеру пятого дня крокодила находят на пирсе. Он не шевелится, но еще дышит. <br>Что делать?',
     icons: [hospital, shapito, lifeguard],

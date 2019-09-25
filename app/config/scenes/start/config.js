@@ -5,7 +5,9 @@ import { SCENE_START } from "scenes";
 
 export const config = () => ({
   init(SceneHandler) {
-    new InfoScene(SceneHandler);
+    const scene = new InfoScene(SceneHandler);
+
+    return () => scene.destroy();
   },
   template,
   title: '',

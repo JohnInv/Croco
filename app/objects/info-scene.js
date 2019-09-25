@@ -8,6 +8,8 @@ export class InfoScene {
     this.description = null;
     this.buttonTitle = null;
 
+    this.button = null;
+
     this.getInfo();
     this.setInfo();
   }
@@ -32,10 +34,18 @@ export class InfoScene {
     description.innerHTML = this.description;
     button.textContent = this.buttonTitle;
 
-    button.addEventListener('click', () => {
-      const isEnd = Boolean(button.getAttribute('data-action-scene-info-button'));
+    button.addEventListener('click', this.onButtonClick.bind(this));
 
-      isEnd ? this.sceneHandler.set(getSceneAfterLoseIndex()) : this.sceneHandler.next();
-    });
+    this.button = button;
   };
+
+  onButtonClick() {
+    const isEnd = Boolean(this.button.getAttribute('data-action-scene-info-button'));
+
+    isEnd ? this.sceneHandler.set(getSceneAfterLoseIndex()) : this.sceneHandler.next();
+  }
+
+  destroy() {
+    this.button.removeEventListener('click', this.onButtonClick);
+  }
 }

@@ -10,7 +10,6 @@ export class Beach {
     this.ctx = ctx;
     this.coords = coords;
     this.color = color;
-    this.direction = direction;
 
     this.draw();
   }

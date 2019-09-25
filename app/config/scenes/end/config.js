@@ -5,7 +5,9 @@ import template from './template.html';
 
 export const config = () => ({
     init(SceneHandler) {
-        new InfoScene(SceneHandler);
+        const infoScene = new InfoScene(SceneHandler);
+
+        return () => infoScene.destroy();
     },
     icons: [],
     type: SCENE_END,

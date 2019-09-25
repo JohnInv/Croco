@@ -27,6 +27,7 @@ export class Croco {
     this.scale = window.innerWidth <= 500 ? 0.35 : 0.5;
 
     this.setupImage();
+    this.timeoutId = null;
   }
 
 
@@ -113,7 +114,7 @@ export class Croco {
   }
 
   setRunTimeout() {
-    setTimeout(() => {
+    this.timeoutId = setTimeout(() => {
       this.shouldRun = true;
     }, circusCrocodileRunDelay);
   }
@@ -136,6 +137,7 @@ export class Croco {
     }
   }
 
-  setScale() {
+  destroy() {
+    if (this.timeoutId) window.clearTimeout(this.timeoutId);
   }
 }

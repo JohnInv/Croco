@@ -11,17 +11,11 @@ export class SceneActionsHandler {
         this.icons = document.querySelectorAll('[data-action-icon]');
 
         this.icons.forEach((icon, iconIndex) => {
-            icon.addEventListener('click', () => {
-                this.sceneHandler.next(iconIndex);
-            });
+            icon.addEventListener('click', this.sceneHandler.next.bind(this.sceneHandler, iconIndex));
 
-            icon.addEventListener('mouseover', () => {
-                this.showPopover(iconIndex);
-            });
+            icon.addEventListener('mouseover', this.showPopover.bind(this, iconIndex));
 
-            icon.addEventListener('mouseleave', () => {
-                this.hidePopover(iconIndex);
-            });
+            icon.addEventListener('mouseleave', this.hidePopover.bind(this, iconIndex));
 
             icon.style.backgroundImage = `url(${this.scene.icons[iconIndex]})`;
         });
@@ -40,5 +34,13 @@ export class SceneActionsHandler {
 
     hidePopover(index) {
         this.popovers[index].classList.remove('show');
+    }
+
+    destroy() {
+        this.icons.forEach((icon) => {
+            icon.removeEventListener('click', this.sceneHandler.next);
+            icon.removeEventListener('mouseover', this.showPopover);
+            icon.removeEventListener('mouseleave', this.hidePopover);
+        });
     }
 }

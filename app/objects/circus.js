@@ -11,30 +11,42 @@ export class Circus {
 
     this.textShowDelay = this.phoneHideDelay;
     this.textHideDelay = this.phoneShowDelay + 1000;
+    this.timeouts = [];
 
     this.setPhoneTimeout();
     this.setTextTimeout();
+
   }
 
   setPhoneTimeout() {
-    setTimeout(() => {
+    const t1 = setTimeout(() => {
       this.phone.classList.add('active');
     }, this.phoneShowDelay);
 
-    setTimeout(() => {
+    const t2 = setTimeout(() => {
       this.phone.classList.remove('active');
     }, this.phoneHideDelay);
+
+    this.timeouts.push(t1, t2);
   }
 
   setTextTimeout() {
-    setTimeout(() => {
+    const t1 = setTimeout(() => {
       this.text.classList.add('active');
     }, this.textShowDelay);
 
-    setTimeout(() => {
+    const t2 = setTimeout(() => {
       this.text.classList.remove('active');
 
-      setTimeout(() => this.sceneHandler.next(), 3000);
+      const t3 = setTimeout(() => this.sceneHandler.next(), 3000);
+
+      this.timeouts.push(t3);
     }, this.textHideDelay);
+
+    this.timeouts.push(t1, t2);
+  }
+
+  destroy() {
+      this.timeouts.forEach(timeout => window.clearTimeout(timeout))
   }
 }
